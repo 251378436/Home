@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xero.Common.Attributes;
-using Xero.Common.Models;
+using Home.Common.Attributes;
+using Home.Common.Models;
 
-namespace Xero.Common.Helpers
+namespace Home.Common.Helpers
 {
     /// <summary>
     /// This static can generate Find, FindAll, Update, Insert, Delete Sql query
@@ -28,12 +28,13 @@ namespace Xero.Common.Helpers
 
             // Create Update Sql
             var propertiesWithoutId = properties.Where(p => !p.Name.Equals("Id"));
-            string parameterStringWithoutId = string.Join(",", propertiesWithoutId.Select(p => $"[{p.Name}]=@{p.Name}"));
-            UpdateSql = $"UPDATE [{type.Name}] SET {parameterStringWithoutId} where Id=";
+            string parameterStringUpdateWithoutId = string.Join(",", propertiesWithoutId.Select(p => $"[{p.Name}]=@{p.Name}"));
+            UpdateSql = $"UPDATE [{type.Name}] SET {parameterStringUpdateWithoutId} where Id=";
 
             // Create Insert Sql
-            string parameterString = string.Join(",", properties.Select(p => $"@{p.Name}"));
-            InsertSql = $"INSERT INTO [{type.Name}] ({columnString}) VALUES ({parameterString});";
+            string parameterStringInsertWithoutId = string.Join(",", propertiesWithoutId.Select(p => $"@{p.Name}"));
+            string columnStringWithoutId = string.Join(",", propertiesWithoutId.Select(p => $"[{p.Name}]"));
+            InsertSql = $"INSERT INTO [{type.Name}] ({columnStringWithoutId}) OUTPUT Inserted.ID VALUES ({parameterStringInsertWithoutId});";
 
             // Create Delete Sql
             DeleteSql = $"DELETE FROM [{type.Name}] where Id =";

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xero.Common.Models;
+using Home.Common.Models;
 
-namespace Xero.Common.DAL
+namespace Home.Common.DAL
 {
     /// <summary>
     /// this interface has Create, Update, Find, Delete methods
@@ -18,7 +18,7 @@ namespace Xero.Common.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        T Find<T>(Guid id) where T : BaseModel;
+        T Find<T>(int id) where T : BaseModel;
 
         /// <summary>
         /// Get all the list of records from Database
@@ -39,13 +39,13 @@ namespace Xero.Common.DAL
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
-        void Insert<T>(T t) where T : BaseModel;
+        int Insert<T>(T t) where T : BaseModel;
 
         /// <summary>
         /// Delete the record by id from Database
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
-        void Delete<T>(Guid id) where T : BaseModel;
+        void Delete<T>(int id) where T : BaseModel;
     }
 }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xero.Common.Attributes;
+using Home.Common.Attributes;
 
-namespace Xero.Common.Models
+namespace Home.Common.Models
 {
     public class BaseModel
     {

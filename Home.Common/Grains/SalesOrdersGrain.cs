@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xero.Common.DAL;
-using Xero.Common.Models;
+using Home.Common.DAL;
+using Home.Common.Models;
 
-namespace Xero.Common.Grains
+namespace Home.Common.Grains
 {
     public class SalesOrdersGrain : ISalesOrdersGrain
     {
@@ -17,7 +17,7 @@ namespace Xero.Common.Grains
             this.salesOrders = dal.FindAll<SalesOrder>();
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             this.dal.Delete<SalesOrder>(id);
 
@@ -26,7 +26,7 @@ namespace Xero.Common.Grains
                 this.salesOrders.Remove(salesOrder);
         }
 
-        public SalesOrder Find(Guid id)
+        public SalesOrder Find(int id)
         {
             var salesOrder = this.salesOrders.FirstOrDefault(p => p.Id.Equals(id));
 
@@ -40,10 +40,10 @@ namespace Xero.Common.Grains
 
         public void Insert(SalesOrder t)
         {
-            if (this.salesOrders.Exists(p => p.Id.Equals(t.Id)))
+            if (this.salesOrders.Exists(p => p.Id.Equals(t.Id)) && t.Id > 0)
                 throw new Exception("This sales order already exists");
-            this.dal.Insert<SalesOrder>(t);
-
+            int newId = this.dal.Insert<SalesOrder>(t);
+            t.Id = newId;
             this.salesOrders.Add(t);
         }
 

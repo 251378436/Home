@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Xero.Common.Attributes;
+using Home.Common.Attributes;
 
-namespace Xero.Common.Models
+namespace Home.Common.Models
 {
     public class SalesOrder : BaseModel
     {
@@ -14,6 +14,11 @@ namespace Xero.Common.Models
         [DBField]
         public decimal Discount { get; set; }
 
-        public List<SalesOrderItem> SalesOrderDetails { get; set; }
+        public List<SalesOrderItem> SalesOrderItems { get; set; }
+
+        public SalesOrder() : base()
+        {
+            this.SalesOrderItems = new List<SalesOrderItem>();
+        }
     }
 }

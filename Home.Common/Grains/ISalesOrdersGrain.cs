@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xero.Common.Models;
+using Home.Common.Models;
 
-namespace Xero.Common.Grains
+namespace Home.Common.Grains
 {
     /// <summary>
     /// This interface contains methods of operating SalesOrder records
@@ -14,7 +14,7 @@ namespace Xero.Common.Grains
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        SalesOrder Find(Guid id);
+        SalesOrder Find(int id);
 
         /// <summary>
         /// Get all the list of SalesOrder records 
@@ -38,6 +38,6 @@ namespace Xero.Common.Grains
         /// Delete the SalesOrder record
         /// </summary>
         /// <param name="id"></param>
-        void Delete(Guid id);
+        void Delete(int id);
     }
 }

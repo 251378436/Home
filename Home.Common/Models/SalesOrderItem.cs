@@ -1,6 +1,6 @@
-﻿using Xero.Common.Attributes;
+﻿using Home.Common.Attributes;
 
-namespace Xero.Common.Models
+namespace Home.Common.Models
 {
     public class SalesOrderItem : BaseModel
     {

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Xero.Common.Attributes;
+using Home.Common.Attributes;
 
-namespace Xero.Common.Helpers
+namespace Home.Common.Helpers
 {
     public static class AttributeHelper
     {

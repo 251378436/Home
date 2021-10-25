@@ -1,35 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.IO;
-using System.Text;
 
-namespace Xero.Common.Factory
+namespace Home.Common.Factory
 {
     /// <summary>
     /// Using DBFactory to initialize the connection string of Database
     /// </summary>
     public class DBFactory
     {
-        private static string ConnectionString = "";
-        static DBFactory()
+        private string connectionString = "";
+
+        public DBFactory()
         {
-            
-            // Using Static constructor can make sure this is only running once
-            var connstr = ConfigurationPath.GetSectionKey("DBConnection");
-            var dbDirectory = Directory.GetCurrentDirectory();
-      
-            ConnectionString = connstr.Replace("{DataDirectory}", dbDirectory);
+        }
+
+        public DBFactory(IConfiguration configuration)
+        {
+            var connstr = configuration.GetSection("DBConnection").Value;
+            var dbDirectory = $"{Directory.GetCurrentDirectory()}\\App_Data";
+
+            this.connectionString = connstr.Replace("{DataDirectory}", dbDirectory);
         }
 
         /// <summary>
         /// Create a new Database SQL Connection
         /// </summary>
         /// <returns></returns>
-        public static SqlConnection NewConnection()
+        public SqlConnection NewConnection()
         {
-            return new SqlConnection(ConnectionString);
+            return new SqlConnection(connectionString);
         }
     }
 }

@@ -4,24 +4,26 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xero.Common.Factory;
-using Xero.Common.Helpers;
-using Xero.Common.Models;
+using Home.Common.Factory;
+using Home.Common.Helpers;
+using Home.Common.Models;
 
-namespace Xero.Common.DAL
+namespace Home.Common.DAL
 {
     /// <summary>
     /// This class is implementation of Interface IDAL
     /// </summary>
     public class DAL : IDAL
     {
-        public DAL()
+        private DBFactory dBFactory;
+        public DAL(DBFactory dBFactory)
         {
+            this.dBFactory = dBFactory;
         }
 
-        public T Find<T>(Guid id) where T : BaseModel
+        public T Find<T>(int id) where T : BaseModel
         {
-            using (var conn = DBFactory.NewConnection())
+            using (var conn = dBFactory.NewConnection())
             {
                 conn.Open();
                 var sql = $"{TSqlHelper<T>.FindSql}'{id}'";
@@ -37,7 +39,7 @@ namespace Xero.Common.DAL
 
         public List<T> FindAll<T>() where T : BaseModel
         {
-            using (var conn = DBFactory.NewConnection())
+            using (var conn = dBFactory.NewConnection())
             {
                 conn.Open();
                 var sql = TSqlHelper<T>.FindAllSql;
@@ -50,23 +52,22 @@ namespace Xero.Common.DAL
             }
         }
 
-        public void Insert<T>(T t) where T : BaseModel
+        public int Insert<T>(T t) where T : BaseModel
         {
             Type type = typeof(T);
-            var propArray = type.GetDBProperties();
+            var propArray = type.GetDBProperties().Where(p => !p.Name.Equals("Id"));
             var parameters = propArray.Select(p => new SqlParameter($"@{p.Name}", p.GetValue(t) ?? DBNull.Value)).ToArray();
 
-            using (var conn = DBFactory.NewConnection())
+            using (var conn = dBFactory.NewConnection())
             {
                 conn.Open();
                 var sql = TSqlHelper<T>.InsertSql;
                 var cmd = new SqlCommand(sql, conn);
 
                 cmd.Parameters.AddRange(parameters);
-                int iResult = cmd.ExecuteNonQuery();
+                var newID = (int)cmd.ExecuteScalar();
 
-                if (iResult <= 0)
-                    throw new Exception("Error inserting data into Database!");
+                return newID;
             }
         }
 
@@ -76,7 +77,7 @@ namespace Xero.Common.DAL
             var propArray = type.GetDBProperties().Where(p => !p.Name.Equals("Id"));
             var parameters = propArray.Select(p => new SqlParameter($"@{p.Name}", p.GetValue(t) ?? DBNull.Value)).ToArray();
 
-            using (var conn = DBFactory.NewConnection())
+            using (var conn = dBFactory.NewConnection())
             {
                 conn.Open();
                 var sql = $"{TSqlHelper<T>.UpdateSql}'{t.Id}'";
@@ -90,9 +91,9 @@ namespace Xero.Common.DAL
             }
         }
 
-        public void Delete<T>(Guid id) where T : BaseModel
+        public void Delete<T>(int id) where T : BaseModel
         {
-            using (var conn = DBFactory.NewConnection())
+            using (var conn = dBFactory.NewConnection())
             {
                 conn.Open();
                 var sql = $"{TSqlHelper<T>.DeleteSql}'{id}'";
