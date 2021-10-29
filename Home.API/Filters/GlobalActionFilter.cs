@@ -11,6 +11,7 @@ namespace Home.API.Filters
         public void OnActionExecuted(ActionExecutedContext context)
         {
             Console.WriteLine("This is GLobalActionFilter OnActionExecuted");
+            context.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
 
         public void OnActionExecuting(ActionExecutingContext context)

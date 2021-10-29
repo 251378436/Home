@@ -33,6 +33,17 @@ namespace Home.API
             services.AddSingleton<ControllerActionFilter>();
             services.AddSingleton<ActionActionFilter>();
 
+            // Set up allow origin
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                });
+            });
+
             services.AddControllers(config =>
             {
                 config.Filters.Add(typeof(CustomExceptionFilter));
@@ -59,6 +70,8 @@ namespace Home.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
