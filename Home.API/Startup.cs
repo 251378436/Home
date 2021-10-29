@@ -1,19 +1,13 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Home.API.Filters;
 using Home.Common.DAL;
 using Home.Common.Factory;
 using Home.Common.Grains;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Home.API
 {
@@ -35,7 +29,14 @@ namespace Home.API
             services.AddSingleton(typeof(ISalesOrderItemsGrain), typeof(SalesOrderItemsGrain));
             services.AddSingleton(typeof(DBFactory));
 
-            services.AddControllers();
+            // Register Filters
+            services.AddSingleton<ControllerActionFilter>();
+            services.AddSingleton<ActionActionFilter>();
+
+            services.AddControllers(config =>
+            {
+                config.Filters.Add(new GLobalActionFilter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Home.API", Version = "v1" });

@@ -1,4 +1,5 @@
-﻿using Home.Common.Grains;
+﻿using Home.API.Filters;
+using Home.Common.Grains;
 using Home.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Home.API.Controllers
 {
+    [ServiceFilter(typeof(ControllerActionFilter))]
     [ApiController]
     [Route("[controller]")]
     public class SalesOrdersController : ControllerBase
@@ -22,6 +24,7 @@ namespace Home.API.Controllers
             this.salesOrdersGrain = salesOrdersGrain;
         }
 
+        [ServiceFilter(typeof(ActionActionFilter))]
         [HttpGet]
         public ActionResult<IEnumerable<SalesOrder>> GetAll()
         {
