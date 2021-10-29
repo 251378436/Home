@@ -36,6 +36,7 @@ namespace Home.API
             services.AddControllers(config =>
             {
                 config.Filters.Add(new GLobalActionFilter());
+                config.Filters.Add(new GLobalAsyncActionFilter());
             });
             services.AddSwaggerGen(c =>
             {
