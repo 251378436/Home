@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 })
 export class CallApiComponent implements OnInit {
   response: Object | null = null;
+  singleOrder: Object | null = null;
   
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -26,5 +27,11 @@ export class CallApiComponent implements OnInit {
       response => this.response = JSON.stringify(response));
   }
 
-  
+  getSalesOrder(orderId: number) {
+    var request = this.http.get<any>(`https://localhost:5001/SalesOrders/${orderId}`);
+                
+
+    request.subscribe(
+      singleOrder => this.singleOrder = JSON.stringify(singleOrder));
+  }
 }

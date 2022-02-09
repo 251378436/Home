@@ -1,8 +1,13 @@
 <div>
     <div>
         <button (click)="getSalesOrders()"> GetSalesOrders</button>
+        <button (click)="getSalesOrder(1)"> GetSalesOrders</button>
     </div>
     <p>
         Response: {{response}}
       </p>
+      <div>
+          <p>Single Order</p>
+          <p>{{singleOrder}}</p>
+      </div>
 </div>

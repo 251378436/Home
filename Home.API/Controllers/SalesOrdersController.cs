@@ -35,6 +35,7 @@ namespace Home.API.Controllers
         }
 
         [HttpGet("{salesOrderId}")]
+        [Authorize("read:messages")]
         public ActionResult<SalesOrder> GetSalesOrder(int salesOrderId)
         {
             var salesOrder = this.salesOrdersGrain.Find(salesOrderId);
