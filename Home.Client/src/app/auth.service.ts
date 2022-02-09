@@ -29,7 +29,11 @@ export class AuthService {
   }
 
   startAuthentication(): Promise<void> {
-    return this.manager.signinRedirect();
+    return this.manager.signinRedirect({
+      extraQueryParams: { 
+        audience: 'https://localhost:5001/'
+      },
+    });
   }
 
   completeAuthentication(): Promise<void> {
