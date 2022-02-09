@@ -1,6 +1,7 @@
 ﻿using Home.API.Filters;
 using Home.Common.Grains;
 using Home.Common.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -26,6 +27,7 @@ namespace Home.API.Controllers
 
         [ServiceFilter(typeof(ActionActionFilter))]
         [HttpGet]
+        [Authorize]
         public ActionResult<IEnumerable<SalesOrder>> GetAll()
         {
             var salesOrders = salesOrdersGrain.FindAll();
