@@ -41,6 +41,7 @@ namespace Home.API
             services.AddSingleton(typeof(IDAL), typeof(DAL));
             services.AddSingleton(typeof(ISalesOrdersGrain), typeof(SalesOrdersGrain));
             services.AddSingleton(typeof(ISalesOrderItemsGrain), typeof(SalesOrderItemsGrain));
+            services.AddSingleton(typeof(IFilesGrain), typeof(FilesGrain));
             services.AddSingleton(typeof(DBFactory));
 
             // Register Filters
