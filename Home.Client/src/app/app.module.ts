@@ -10,6 +10,7 @@ import { ProtectedComponent } from './protected/protected.component';
 import { SilentCallbackComponent } from './silent-callback/silent-callback.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { LoggingInterceptor } from './logging.interceptor';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LoggingInterceptor } from './logging.interceptor';
     AuthCallbackComponent,
     CallApiComponent,
     ProtectedComponent,
-    SilentCallbackComponent
+    SilentCallbackComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,

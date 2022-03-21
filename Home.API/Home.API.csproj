@@ -14,4 +14,9 @@
     <ProjectReference Include="..\Home.Common\Home.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="StaticFiles\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
 </Project>
