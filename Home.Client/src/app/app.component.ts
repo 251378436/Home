@@ -16,5 +16,6 @@ export class AppComponent {
     this.apiUrl = environment.apiUrl;
     // var env = process.env;
     console.log(process);
+    console.log(process.env['apiUrl']);
   }
 }
