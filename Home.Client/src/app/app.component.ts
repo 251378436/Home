@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
+import * as process from 'process';
 
 @Component({
   selector: 'app-root',
@@ -13,5 +14,7 @@ export class AppComponent {
   constructor(){
     console.log(environment);
     this.apiUrl = environment.apiUrl;
+    // var env = process.env;
+    console.log(process);
   }
 }
