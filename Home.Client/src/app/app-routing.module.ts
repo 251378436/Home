@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: 'protected',
     component: ProtectedComponent,
-    canActivate: [AuthGuardService]
+    // canActivate: [AuthGuardService]
   },
   {
     path: 'auth-callback',
@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'call-api',
     component: CallApiComponent,
-    canActivate: [AuthGuardService]
+    // canActivate: [AuthGuardService]
   },
   {
     path: 'upload',
