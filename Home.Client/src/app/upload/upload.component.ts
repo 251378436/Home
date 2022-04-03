@@ -15,6 +15,10 @@ export class UploadComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    window.dataLayer.push({
+      'event': 'PageOpened',
+      'pageViewName': 'Upload'
+     });
   }
 
   public uploadFile = (files: any) => {
