@@ -10,10 +10,6 @@ export class ProtectedComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    window.dataLayer.push({
-      'event': 'PageOpened',
-      'pageViewName': 'Protected'
-     });
   }
 
 }

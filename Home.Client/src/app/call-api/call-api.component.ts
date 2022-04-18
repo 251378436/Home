@@ -17,10 +17,6 @@ export class CallApiComponent implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   ngOnInit(): void {
-    window.dataLayer.push({
-      'event': 'PageOpened',
-      'pageViewName': 'Call-Api'
-     });
   }
 
   getSalesOrders() {
